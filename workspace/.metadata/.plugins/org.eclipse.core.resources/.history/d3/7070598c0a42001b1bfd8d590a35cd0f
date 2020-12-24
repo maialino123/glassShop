@@ -1,0 +1,14 @@
+package com.glassProject.Mapper;
+
+import java.sql.ResultSet;
+
+import com.glassProject.model.userModel;
+
+public class userMapper implements rowMapper<userModel> {
+
+	public userModel maprow(ResultSet rs) {
+		
+		return null;
+	}
+
+}

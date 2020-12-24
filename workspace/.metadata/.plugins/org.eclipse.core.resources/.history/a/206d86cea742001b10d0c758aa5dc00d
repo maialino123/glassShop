@@ -1,0 +1,11 @@
+package com.glassProject.utils;
+
+public class sessionUtils {
+  public static sessionUtils instance = null;
+  public static sessionUtils getInstance() {
+	  if (instance == null) {
+		instance = new sessionUtils();
+	}
+	  return instance;
+  }
+}

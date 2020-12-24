@@ -1,0 +1,30 @@
+package com.glassProject.loger;
+
+public class logger implements ILoger {
+	
+	private String userName;
+	private String password;
+	private boolean status;
+	
+	
+
+	public logger(String userName, String password, boolean status) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.status = status;
+	}
+
+	public void getUserName() {
+		
+	}
+
+	public void getPassWord() {
+		
+	}
+
+	public void getStatus() {
+		
+	}
+
+}

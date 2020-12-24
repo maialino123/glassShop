@@ -1,0 +1,7 @@
+package com.glassProject.Mapper;
+
+import com.glassProject.model.userModel;
+
+public class userMapper implements rowMapper<userModel> {
+
+}

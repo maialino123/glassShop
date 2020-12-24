@@ -1,0 +1,27 @@
+package com.glassProject.Mapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.glassProject.model.userModel;
+
+public class userMapper implements rowMapper<userModel> {
+
+	public userModel maprow(ResultSet rs) {
+		try {
+			userModel userModel = new userModel();
+			userModel.setUserId(rs.getLong("userId"));
+			userModel.setUserName(rs.getString("userName"));
+			userModel.setPassword(rs.getString("password"));
+			userModel.setFirstName(rs.getString("firstName"));
+			userModel.setLastName(rs.getString("lastName"));
+			userModel.setAddress(rs.getString("address"));
+			userModel.setEmail(rs.getString("email"));
+			userModel.setRoleId(rs.getLong("roleId"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

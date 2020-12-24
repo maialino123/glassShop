@@ -1,0 +1,73 @@
+package com.glassProject.DAO.impl;
+
+import java.util.List;
+
+import com.glassProject.DAO.IproductDAO;
+import com.glassProject.Mapper.productMapper;
+import com.glassProject.model.productModel;
+import com.glassProject.paging.pageble;
+
+public class productDAO extends abstractDAO<productModel> implements IproductDAO {
+	public List<productModel> findAll(pageble pageble) {
+		StringBuilder sql = new StringBuilder("select * from products ");
+		if (pageble.getSorter().getSortName() != null && pageble.getSorter().getSortBy() != null) {
+			sql.append(" order by "+pageble.getSorter().getSortName()+" "+pageble.getSorter().getSortBy());
+		}
+		if (pageble.getOffset() != null && pageble.getLimit() != null) {
+			sql.append(" limit "+pageble.getOffset()+","+pageble.getLimit());
+		}
+		System.out.println(sql.toString());
+		return query(sql.toString(), new productMapper());
+	}
+
+	public Long add(productModel productModel) {
+		StringBuilder sql = new StringBuilder("insert into products");
+		sql.append("(productCode,productName,metaTitle,description,productImage,price,promotionPrice,includeVAT,");
+		sql.append("quantity,categoryId,detail,warranty,createdDate,createdBy,metaKeywords,");
+		sql.append("metaDescriptions,status,viewCounts) values");
+		sql.append("(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		return insert(sql.toString(), productModel.getProductCode(), productModel.getProductName(),
+				productModel.getMetaTile(), productModel.getDescription(), productModel.getProductImage(),
+				productModel.getPrice(), productModel.getPromotionPrice(), productModel.isIncludeVAT(),
+				productModel.getQuantity(), productModel.getCategoryId(), productModel.getDetail(),
+				productModel.getWarranty(), productModel.getCreatedDate(), productModel.getCreatedBy(), productModel.getMetaKeywords(),
+				productModel.getMetaDescription(), productModel.isStatus(),
+				productModel.getViewCounts());
+	}
+
+	public void edit(productModel productModel) {
+		StringBuilder sql = new StringBuilder("update products set ");
+		sql.append(
+				"productCode = ?,productName=?,metaTitle=?,description=?,productImage=?,price=?,promotionPrice=?,includeVAT=?,");
+		sql.append(
+				"quantity=?,categoryId=?,detail=?,warranty=?,createdDate=?,createdBy=?,modifiedDate=?,modifiedBy=?,metaKeywords=?,");
+		sql.append("metaDescriptions=?,status=?,viewCounts=? where productId = ?");
+
+		update(sql.toString(), productModel.getProductCode(), productModel.getProductName(), productModel.getMetaTile(),
+				productModel.getDescription(), productModel.getProductImage(), productModel.getPrice(),
+				productModel.getPromotionPrice(), productModel.isIncludeVAT(), productModel.getQuantity(),
+				productModel.getCategoryId(), productModel.getDetail(), productModel.getWarranty(),
+				productModel.getCreatedDate(), productModel.getCreatedBy(), productModel.getModifiedDate(),
+				productModel.getModifiedBy(), productModel.getMetaKeywords(), productModel.getMetaDescription(),
+				productModel.isStatus(), productModel.getViewCounts(),
+				productModel.getProductId());
+	}
+
+	public productModel findOne(Long id) {
+		String sql = "select * from products where productId = ?";
+		List<productModel> data = query(sql, new productMapper(), id);
+		return data.isEmpty() ? null : data.get(0);
+	}
+
+	public void delete(Long id) {
+		String sql = "select * from products where productId = ?";
+		update(sql.toString(), id);
+		
+	}
+
+	public Integer getCount() {
+		String sql = "select count(*) from products"; 
+		return queryCount(sql.toString());
+	}
+
+}

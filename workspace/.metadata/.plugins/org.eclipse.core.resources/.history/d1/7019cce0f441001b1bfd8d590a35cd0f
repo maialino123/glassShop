@@ -1,0 +1,6 @@
+package com.glassProject.sort;
+
+public class sorter {
+  private String sortName;
+  private String sortBy;
+}

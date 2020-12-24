@@ -1,0 +1,50 @@
+package com.glassProject.service.impl;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import com.glassProject.DAO.IproductDAO;
+import com.glassProject.model.productModel;
+import com.glassProject.paging.pageble;
+import com.glassProject.service.IProductService;
+
+public class productService implements IProductService {
+	
+	@Inject private IproductDAO proDAO;
+
+	public List<productModel> findAll(pageble pageble) {
+		return proDAO.findAll(pageble);
+	}
+
+	public productModel add(productModel productModel) {
+		productModel.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		productModel.setCreatedBy("");
+		productModel.setViewCounts(12);
+		Long proId = proDAO.add(productModel);
+		return proDAO.findOne(proId);
+	}
+
+	public productModel edit(productModel productModel) {
+		productModel oldProduct = proDAO.findOne(productModel.getProductId());
+		productModel.setCreatedDate(oldProduct.getCreatedDate());
+		productModel.setCreatedBy(oldProduct.getCreatedBy());
+		productModel.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		productModel.setModifiedBy("");
+		proDAO.edit(productModel);
+		return proDAO.findOne(productModel.getProductId());
+	}
+
+	public void delete(Long[] id) {
+		for (Long l : id) {
+			proDAO.delete(l);
+		}
+	}
+
+	public Integer getCount() {
+		return proDAO.getCount();
+	}
+
+
+}

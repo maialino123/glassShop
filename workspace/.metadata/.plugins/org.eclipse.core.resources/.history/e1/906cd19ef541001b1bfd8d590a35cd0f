@@ -1,0 +1,12 @@
+package com.glassProject.service;
+
+import java.util.List;
+
+import com.glassProject.model.newModel;
+
+public interface INewService {
+ List<newModel> findAll(Integer offset , Integer limit, String sortName , String sortBy);
+ newModel add(newModel newModel);
+ newModel edit(newModel newModel);
+ Integer getCount();
+}

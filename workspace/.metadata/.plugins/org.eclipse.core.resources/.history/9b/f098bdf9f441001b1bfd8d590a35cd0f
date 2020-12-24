@@ -1,0 +1,7 @@
+package com.glassProject.paging;
+
+public interface pageble {
+  Integer getPage();
+  Integer getOffset();
+  Integer getLimit();
+}

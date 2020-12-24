@@ -1,0 +1,7 @@
+package com.glassProject.service;
+
+import com.glassProject.model.userModel;
+
+public interface IUserService {
+ userModel findByUserNameAndPasswordAndStatus(String userName, String password, Boolean status);
+}

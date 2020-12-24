@@ -1,0 +1,20 @@
+package com.glassProject.paging;
+
+public class pageRequest implements pageble {
+
+	public Integer getPage() {
+		
+		return null;
+	}
+
+	public Integer getOffset() {
+		
+		return null;
+	}
+
+	public Integer getLimit() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

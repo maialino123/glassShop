@@ -1,0 +1,46 @@
+package com.glassProject.controller.admin;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.glassProject.constant.SystemConstant;
+import com.glassProject.model.productModel;
+import com.glassProject.paging.pageRequest;
+import com.glassProject.paging.pageble;
+import com.glassProject.service.IProductService;
+import com.glassProject.sort.sorter;
+import com.glassProject.utils.formUtils;
+
+
+@WebServlet(urlPatterns = "/admin-product-list")
+public class productController extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 74310899437069240L;
+	
+	@Inject private IProductService productService;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		productModel productModel = formUtils.toModel(productModel.class, req);
+		pageble pageble = new pageRequest(productModel.getPage(), productModel.getMaxPageItem(), new sorter(productModel.getSortName(), productModel.getSortBy()));
+		productModel.setData(productService.findAll(pageble));
+		productModel.setTotalItem(productService.getCount());
+		productModel.setTotalPage((int) Math.ceil((double) productModel.getTotalItem() / productModel.getMaxPageItem()));
+        req.setAttribute(SystemConstant.MODEL, productModel);		
+		RequestDispatcher rq = req.getRequestDispatcher("/views/admin/product/productList.jsp");
+		rq.forward(req, resp);
+	}
+	
+	
+
+}

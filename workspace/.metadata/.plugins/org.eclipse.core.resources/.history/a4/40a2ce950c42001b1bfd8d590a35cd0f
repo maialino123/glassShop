@@ -1,0 +1,13 @@
+package com.glassProject.service.impl;
+
+import com.glassProject.model.userModel;
+import com.glassProject.service.IUserService;
+
+public class userService implements IUserService {
+
+	public userModel findByUserNameAndPasswordAndStatus(String userName, String password, Boolean status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

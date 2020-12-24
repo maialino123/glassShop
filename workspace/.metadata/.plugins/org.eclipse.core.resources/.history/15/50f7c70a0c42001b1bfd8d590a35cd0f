@@ -1,0 +1,14 @@
+package com.glassProject.DAO.impl;
+
+import com.glassProject.DAO.IUserDAO;
+import com.glassProject.model.userModel;
+
+public class userDAO extends abstractDAO<userModel> implements IUserDAO {
+
+	public userModel findByUserNameAndPasswordAndStatus(String userName, String password, Boolean status) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM users as u ");
+		sql.append("INNER JOIN role as r ON r.roleId = u.roleId");
+		return null;
+	}
+
+}

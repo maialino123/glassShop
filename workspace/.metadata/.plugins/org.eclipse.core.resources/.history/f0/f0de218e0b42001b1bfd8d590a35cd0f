@@ -1,0 +1,5 @@
+package com.glassProject.DAO;
+
+public interface IUserDAO {
+
+}

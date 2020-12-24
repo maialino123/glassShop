@@ -1,0 +1,5 @@
+package com.glassProject.loger;
+
+public interface ILoger {
+
+}

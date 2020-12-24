@@ -1,0 +1,58 @@
+package com.glassProject.DAO.impl;
+
+import java.util.List;
+
+import com.glassProject.DAO.InewDAO;
+import com.glassProject.Mapper.newsMapper;
+import com.glassProject.model.newModel;
+import com.glassProject.paging.pageble;
+
+public class newDAO extends abstractDAO<newModel> implements InewDAO {
+
+	public List<newModel> findAll(pageble pageble) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM  news ");
+		if (pageble.getSorter().getSortName() != null && pageble.getSorter().getSortBy() != null) {
+			sql.append(" order by "+pageble.getSorter().getSortName()+" "+pageble.getSorter().getSortBy()+" ");
+		}
+		if (pageble.getOffset() != null && pageble.getLimit() != null) {
+			sql.append("limit "+pageble.getOffset()+" , " + limit +" ");
+		}
+		return query(sql.toString(), new newsMapper());
+	}
+
+	public newModel findOne(Long newId) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM news where newId = ?");
+		List<newModel> list = query(sql.toString(), new newsMapper(), newId);
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	public Long add(newModel newModel) {
+		StringBuilder sql = new StringBuilder("INSERT INTO news ");
+		sql.append("(title,metaTitle,description,newImage,newCategoryId,detail,createdDate"
+				+ ",createdBy,metaKeywords,metaDescriptions," + "status,topHot,viewCount,tagId)");
+		sql.append(" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		System.out.println(sql.toString());
+		return insert(sql.toString(), newModel.getTitle(), newModel.getMetaTile(), newModel.getDescription(),
+				newModel.getNewImage(), newModel.getNewCategoryId(), newModel.getDetal(), newModel.getCreatedDate(),
+				newModel.getCreatedBy(), newModel.getMetaKeywords(), newModel.getMetaDescription(), newModel.isStatus(),
+				newModel.getTopHot(), newModel.getViewCount(), newModel.getTagId());
+	}
+
+	public void update(newModel newModel) {
+		StringBuilder sql = new StringBuilder("UPDATE news set ");
+		sql.append("(title = ?,metaTitle = ?,description = ?,newImage = ?,newCategoryId = ?,detail = ?,createdDate = ?"
+				+ ",createdBy = ?,modifiedDate = ?,modifiedBy = ?,metaKeywords = ?,metaDescriptions = ?,"
+				+ "status = ?,topHot = ?,viewCount = ?,tagId = ? where newId = ?)");
+		update(sql.toString(), newModel.getNewCategoryId(), newModel.getDetal(), newModel.getCreatedDate(),
+				newModel.getCreatedBy(), newModel.getModifiedDate(), newModel.getModifiedBy(),
+				newModel.getMetaKeywords(), newModel.getMetaDescription(), newModel.isStatus(), newModel.getTopHot(),
+				newModel.getViewCount(), newModel.getTagId(), newModel.getNewId());
+
+	}
+
+	public Integer getCount() {
+		StringBuilder sql = new StringBuilder("Select count(*) from news");
+		return queryCount(sql.toString());
+	}
+
+}

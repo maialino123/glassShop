@@ -1,0 +1,45 @@
+package com.glassProject.controller.admin;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.glassProject.constant.SystemConstant;
+import com.glassProject.model.newModel;
+import com.glassProject.paging.pageRequest;
+import com.glassProject.paging.pageble;
+import com.glassProject.service.INewService;
+import com.glassProject.utils.formUtils;
+
+
+@WebServlet(urlPatterns = "/admin-new")
+public class newController extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Inject private INewService newService;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		newModel newModel = formUtils.toModel(newModel.class, req);
+		pageble pageble = new pageRequest(newModel.getPage(), newModel.getMaxPageItem());
+		newModel.setData(newService.findAll(pageble));
+		newModel.setTotalItem(newService.getCount());
+		newModel.setTotalPage((int) (Math.ceil((double) newModel.getTotalItem() / newModel.getMaxPageItem())));
+		req.setAttribute(SystemConstant.MODEL, newModel);
+		RequestDispatcher rq = req.getRequestDispatcher("/views/admin/new/newList.jsp");
+		rq.forward(req, resp);
+	}
+	
+	
+
+}

@@ -1,0 +1,7 @@
+package com.glassProject.service.impl;
+
+import com.glassProject.service.IUserService;
+
+public class userService implements IUserService {
+
+}

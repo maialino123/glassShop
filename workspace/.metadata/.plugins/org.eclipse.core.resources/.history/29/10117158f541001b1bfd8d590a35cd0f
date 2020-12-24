@@ -1,0 +1,13 @@
+package com.glassProject.DAO;
+
+import java.util.List;
+
+import com.glassProject.model.newModel;
+
+public interface InewDAO {
+   List<newModel> findAll(Integer offset , Integer limit, String sortName, String sortBy);
+   newModel findOne(Long newId);
+   Long add(newModel newModel);
+   void update(newModel newModel);
+   Integer getCount();
+}

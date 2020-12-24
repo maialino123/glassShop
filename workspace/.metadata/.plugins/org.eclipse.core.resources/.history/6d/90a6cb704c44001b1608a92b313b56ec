@@ -1,0 +1,7 @@
+package com.glassProject.loger;
+
+public interface ILoger {
+  void getUserName();
+  void getPassWord();
+  void getStatus();
+}

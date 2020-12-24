@@ -1,0 +1,5 @@
+package com.glassProject.service;
+
+public interface IUserService {
+
+}
